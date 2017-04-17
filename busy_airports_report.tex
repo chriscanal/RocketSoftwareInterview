@@ -1,0 +1,762 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{busy\_airports\_report}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Data Engineer Intern Project - By Chris
+Canal}\label{data-engineer-intern-project---by-chris-canal}
+
+\subsubsection{Directions:}\label{directions}
+
+Check out the data at
+http://stat-computing.org/dataexpo/2009/the-data.html. This is a large
+set of aviation data over a couple decades. Create an Apache Spark
+program that pulls in one year of data.
+
+Create a monthly report for the top 25 busiest airports of that month.
+For each airport, include the following information in the report:
+number of flights per day at the airport, the three most common carriers
+at the airport for the month, average taxi time at the airport, number
+of weather delays per day, and the top five destinations from the
+airport.
+
+Use the supplemental data to allow the report to be easier to read and
+understand
+(http://stat-computing.org/dataexpo/2009/supplemental-data.html). You
+can output the data as a CSV file that can be read within Excel. Be
+prepared to show and discuss your code.
+
+    \subsubsection{First Steps:}\label{first-steps}
+
+I am going to begin by importing all the libraries I am going to need
+for this project and initializing my spark context.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} First Import the needed libraries}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{urllib2}
+        \PY{k+kn}{import} \PY{n+nn}{bz2}
+        \PY{k+kn}{import} \PY{n+nn}{csv}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{import} \PY{n+nn}{json}
+        \PY{k+kn}{import} \PY{n+nn}{os.path}
+        \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k+kn}{import} \PY{n}{OrderedDict}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        
+        \PY{k+kn}{import} \PY{n+nn}{plotly.plotly} \PY{k+kn}{as} \PY{n+nn}{py}
+        \PY{k+kn}{from} \PY{n+nn}{plotly.graph\PYZus{}objs} \PY{k+kn}{import} \PY{o}{*}
+        
+        \PY{k+kn}{from} \PY{n+nn}{pyspark} \PY{k+kn}{import} \PY{n}{SparkContext}
+        \PY{n}{sc} \PY{o}{=} \PY{n}{SparkContext}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{local[*]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  \PY{c+c1}{\PYZsh{} if using locally}
+        
+        \PY{k+kn}{from} \PY{n+nn}{pyspark.sql} \PY{k+kn}{import} \PY{n}{SQLContext}
+        \PY{n}{sqlContext} \PY{o}{=} \PY{n}{SQLContext}\PY{p}{(}\PY{n}{sc}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+    \subsubsection{Importing Data}\label{importing-data}
+
+This block imports data from the interent if it has not been downloaded
+to the local directory.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Import data from the web or from local if available}
+        
+        \PY{n}{dataFiles} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flight\PYZus{}data\PYZus{}2008.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{airports.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{carriers.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plane\PYZhy{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileURLs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://stat\PYZhy{}computing.org/dataexpo/2009/2008.csv.bz2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://stat\PYZhy{}computing.org/dataexpo/2009/airports.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://stat\PYZhy{}computing.org/dataexpo/2009/carriers.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://stat\PYZhy{}computing.org/dataexpo/2009/plane\PYZhy{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{month\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{January}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{February}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{March}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{April}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{May}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{June}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{July}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{August}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{September}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{October}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{November}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{December}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Downloading }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ from }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileURLs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{...}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                
+                \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+                \PY{n}{response} \PY{o}{=} \PY{n}{urllib2}\PY{o}{.}\PY{n}{urlopen}\PY{p}{(}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileURLs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+                \PY{k}{print}\PY{p}{(}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ downloaded in }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ seconds}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                
+                \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{saving }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{...}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+                \PY{n}{data} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+                
+                \PY{k}{if} \PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{n}{dataString} \PY{o}{=} \PY{n}{data}
+                \PY{k}{elif} \PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bz2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}       
+                    \PY{n}{dataString} \PY{o}{=} \PY{n}{bz2}\PY{o}{.}\PY{n}{decompress}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error in filetype}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                
+                \PY{n}{new\PYZus{}file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{new\PYZus{}file}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{dataString}\PY{p}{)}
+                \PY{n}{new\PYZus{}file}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+                \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+                \PY{k}{print}\PY{p}{(}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ unzipped and saved in }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ seconds}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{print}\PY{p}{(}\PY{n}{dataFiles}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fileNames}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ has already been downloaded}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+flight\_data\_2008.csv has already been downloaded
+
+airports.csv has already been downloaded
+
+carriers.csv has already been downloaded
+
+plane-data.csv has already been downloaded
+
+
+    \end{Verbatim}
+
+    \subsubsection{Additional Data}\label{additional-data}
+
+Additional data was used from the Aircraft Registration Database. This
+data can be found at
+http://registry.faa.gov/database/ReleasableAircraft.zip
+
+The data from the ACFTREF.txt was used. In order to run the rest of this
+notebook, you bust download this zip, extract the files, change the name
+of ACFTREF.txt to ACFTREF.csv and move that file to the local directory.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Load all data into Spark DataFrames}
+        
+        \PY{n}{flight\PYZus{}data} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{textFile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flight\PYZus{}data\PYZus{}2008.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{test\PYZus{}flight\PYZus{}data} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{textFile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flight\PYZus{}data\PYZus{}test\PYZus{}100.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{airports} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{textFile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{airports.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{carriers} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{textFile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{carriers.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plane\PYZus{}data} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{textFile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plane\PYZhy{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{aircraft\PYZus{}data} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{textFile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ACFTREF.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} view header of the data (column names)}
+        \PY{k}{print}\PY{p}{(}\PY{n}{test\PYZus{}flight\PYZus{}data}\PY{o}{.}\PY{n}{take}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[u'Year,Month,DayofMonth,DayOfWeek,DepTime,CRSDepTime,ArrTime,CRSArrTime,UniqueCarrier,FlightNum,TailNum,ActualElapsedTime,CRSElapsedTime,AirTime,ArrDelay,DepDelay,Origin,Dest,Distance,TaxiIn,TaxiOut,Cancelled,CancellationCode,Diverted,CarrierDelay,WeatherDelay,NASDelay,SecurityDelay,LateAircraftDelay']
+
+    \end{Verbatim}
+
+    \subsubsection{Parse Functions}\label{parse-functions}
+
+As you can see in the previous cell, there is a lot of data in this main
+data file. We don't need all of it, so we will get rid of some of that
+data using the filter and map functions in pyspark.
+
+These parse functions divide the csv data into a useable format while
+dropping the unwanted fields.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{parseLineByMonth}\PY{p}{(}\PY{n}{line}\PY{p}{)}\PY{p}{:}
+            \PY{n}{fields} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{Month} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{Month}
+            
+        \PY{k}{def} \PY{n+nf}{parseLineByOrigin}\PY{p}{(}\PY{n}{line}\PY{p}{)}\PY{p}{:}
+            \PY{n}{fields} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{Month} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Day} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Origin} \PY{o}{=} \PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{]} \PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{Dest} \PY{o}{=} \PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{17}\PY{p}{]}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{Carrier} \PY{o}{=} \PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{TaxIn} \PY{o}{=} \PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{19}\PY{p}{]}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{TaxOut} \PY{o}{=} \PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{20}\PY{p}{]}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{Weather} \PY{o}{=} \PY{n}{fields}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{]}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}TODO Add in weather}
+            \PY{k}{return} \PY{p}{(}\PY{n}{Origin}\PY{p}{,} \PY{p}{(}\PY{n}{Dest}\PY{p}{,} \PY{n}{Month}\PY{p}{,} \PY{n}{Carrier}\PY{p}{,} \PY{n}{TaxIn}\PY{p}{,} \PY{n}{TaxOut}\PY{p}{,} \PY{n}{Weather}\PY{p}{,} \PY{n}{Day}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Find busiest month}\label{find-busiest-month}
+
+I thought it would be most adventageous to look at the busiest month in
+the year. The following block removes the header from the RDD and then
+removes all data except the month when the flight occured. The we use
+countByValue to count all occurences of each month. Since there are only
+12 rows after in the returned python object, I will sort using pure
+python instead of spark.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Find busiest month in the data, this will be the}
+        \PY{c+c1}{\PYZsh{}most interesting month to analyze}
+        
+        \PY{n}{header} \PY{o}{=} \PY{n}{flight\PYZus{}data}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}extract header}
+        \PY{n}{data} \PY{o}{=} \PY{n}{flight\PYZus{}data}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{row}\PY{p}{:} \PY{n}{row} \PY{o}{!=} \PY{n}{header}\PY{p}{)}   \PY{c+c1}{\PYZsh{}filter out header}
+        
+        \PY{n}{rdd\PYZus{}month\PYZus{}flights} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{parseLineByMonth}\PY{p}{)}
+        \PY{n}{flights\PYZus{}per\PYZus{}month} \PY{o}{=} \PY{n}{rdd\PYZus{}month\PYZus{}flights}\PY{o}{.}\PY{n}{countByValue}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{busiest\PYZus{}month} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{flights\PYZus{}per\PYZus{}month}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{t}\PY{p}{:} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The busiest month is }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n}{month\PYZus{}list}\PY{p}{[}\PY{n}{busiest\PYZus{}month}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ with }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{busiest\PYZus{}month}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ flights}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The busiest month is July with 627931 flights
+
+    \end{Verbatim}
+
+    \subsubsection{Find the busiest
+airports}\label{find-the-busiest-airports}
+
+Next, I am interested in finding the 25 busiest airports. Now that we
+are going to be reusing some of the data when we do other calculations
+on these 25 airports, it is important to use the cache( ) function in
+order to maximize our effeciency and minimize the ammount of work we
+redo. I also love using this trick where you flip the key and value in a
+key value pair in orde to use the sort by key function built into
+pyspark, so baller.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{rdd} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{parseLineByOrigin}\PY{p}{)} 
+        \PY{n}{rdd\PYZus{}busy\PYZus{}month} \PY{o}{=} \PY{n}{rdd}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{n}{busiest\PYZus{}month}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{)}\PY{o}{.}\PY{n}{cache}\PY{p}{(}\PY{p}{)}
+        \PY{n}{rdd\PYZus{}top\PYZus{}25} \PY{o}{=} \PY{n}{rdd\PYZus{}busy\PYZus{}month}\PY{o}{.}\PY{n}{flatMap}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n}{rdd\PYZus{}top\PYZus{}25} \PY{o}{=} \PY{n}{rdd\PYZus{}top\PYZus{}25}\PY{o}{.}\PY{n}{reduceByKey}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{x} \PY{o}{+} \PY{n}{y}\PY{p}{)}
+        \PY{n}{rdd\PYZus{}top\PYZus{}25} \PY{o}{=} \PY{n}{rdd\PYZus{}top\PYZus{}25}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sortByKey}\PY{p}{(}\PY{p}{)}
+        \PY{n}{sorted\PYZus{}25\PYZus{}airports\PYZus{}and\PYZus{}flights} \PY{o}{=} \PY{n}{rdd\PYZus{}top\PYZus{}25}\PY{o}{.}\PY{n}{collect}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{25}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{These are the top 25 busiest airports and the number of flights they had}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{sorted\PYZus{}airports\PYZus{}25} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}25\PYZus{}airports\PYZus{}and\PYZus{}flights}\PY{p}{:}
+            \PY{n}{sorted\PYZus{}airports\PYZus{}25}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{n}{sorted\PYZus{}25\PYZus{}airports\PYZus{}and\PYZus{}flights}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+These are the top 25 busiest airports and the number of flights they had
+[(14862, 'MDW'), (15122, 'DCA'), (16202, 'CVG'), (17224, 'SAN'), (17792, 'PHL'), (18606, 'BWI'), (21023, 'LGA'), (21184, 'BOS'), (21454, 'SEA'), (21638, 'CLT'), (23002, 'JFK'), (23156, 'MCO'), (23367, 'MSP'), (24493, 'EWR'), (24951, 'SLC'), (25687, 'SFO'), (28781, 'DTW'), (30455, 'LAS'), (33759, 'IAH'), (34780, 'PHX'), (39613, 'LAX'), (44102, 'DEN'), (50776, 'DFW'), (63171, 'ORD'), (72865, 'ATL')]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}create intermediate rdd with only the 25 airport data in the busy month}
+         \PY{n}{rdd\PYZus{}busy\PYZus{}month} \PY{o}{=} \PY{n}{rdd\PYZus{}busy\PYZus{}month}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{p}{(}\PY{n}{x} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}airports\PYZus{}25}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}airports\PYZus{}25}\PY{p}{)} \PY{p}{)}\PY{o}{.}\PY{n}{cache}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Main Spark Program}\label{main-spark-program}
+
+This part of the script can look a little intimidating. After spending a
+little time with the code though, it is very simple and easy to
+understand. Most imporant part of this block is the use of the cache( )
+funciton. This function allows for an immense speed gain because spark
+doesn't have to recalculate costly steps with lots of data.
+
+At a high level, this block iterates over the 25 busy airports we found
+earlier and exctracts a bit of data from each of them. There are a
+couple odd filters, you might notice. I used ".filter(lambda (x,y): y)"
+as a simple way to check for empty data. For some reason, there were
+some missing fields in the data. This filter helped me ignore those
+before I try to put some sort of transformation on that data. Everything
+else is fairly straight forward.
+
+I store all the data that I find in a dictionary, where the airport code
+is the key to the data that lies within.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{gathered\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{airport} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}airports\PYZus{}25}\PY{p}{:}
+             \PY{n}{this\PYZus{}airport\PYZus{}rdd} \PY{o}{=} \PY{n}{rdd\PYZus{}busy\PYZus{}month}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{p}{(}\PY{n}{x} \PY{o}{==} \PY{n}{airport}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{==} \PY{n}{airport}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{cache}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}cache all incoming and outgoing flights to this airport}
+             
+             \PY{n}{flights\PYZus{}per\PYZus{}day} \PY{o}{=} \PY{n}{this\PYZus{}airport\PYZus{}rdd}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{countByValue}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{top\PYZus{}3\PYZus{}carriers\PYZus{}rdd} \PY{o}{=} \PY{n}{this\PYZus{}airport\PYZus{}rdd}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reduceByKey}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{n}{y}\PY{p}{)}
+             \PY{n}{top\PYZus{}3\PYZus{}carriers} \PY{o}{=} \PY{n}{top\PYZus{}3\PYZus{}carriers\PYZus{}rdd}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sortByKey}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{collect}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}
+             
+             \PY{n}{landing\PYZus{}flights\PYZus{}rdd} \PY{o}{=} \PY{n}{this\PYZus{}airport\PYZus{}rdd}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{n}{y}\PY{p}{)}
+             \PY{n}{landing\PYZus{}flights\PYZus{}rdd} \PY{o}{=} \PY{n}{landing\PYZus{}flights\PYZus{}rdd}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{!=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NA}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{and} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{==} \PY{n}{airport}\PY{p}{)}
+             \PY{n}{landing\PYZus{}flights\PYZus{}rdd} \PY{o}{=} \PY{n}{landing\PYZus{}flights\PYZus{}rdd}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{landing\PYZus{}flights\PYZus{}rdd} \PY{o}{=} \PY{n}{landing\PYZus{}flights\PYZus{}rdd}\PY{o}{.}\PY{n}{reduceByKey}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{average\PYZus{}taxi\PYZus{}in} \PY{o}{=} \PY{n}{landing\PYZus{}flights\PYZus{}rdd}\PY{o}{.}\PY{n}{mapValues}\PY{p}{(}\PY{k}{lambda} \PY{n}{y}\PY{p}{:} \PY{n+nb}{float}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{collect}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{departing\PYZus{}flights\PYZus{}rdd} \PY{o}{=} \PY{n}{this\PYZus{}airport\PYZus{}rdd}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{n}{y}\PY{p}{)}
+             \PY{n}{departing\PYZus{}flights\PYZus{}rdd} \PY{o}{=} \PY{n}{departing\PYZus{}flights\PYZus{}rdd}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{!=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NA}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{and} \PY{n}{x} \PY{o}{==} \PY{n}{airport}\PY{p}{)}
+             \PY{n}{departing\PYZus{}flights\PYZus{}rdd} \PY{o}{=} \PY{n}{departing\PYZus{}flights\PYZus{}rdd}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{departing\PYZus{}flights\PYZus{}rdd} \PY{o}{=} \PY{n}{departing\PYZus{}flights\PYZus{}rdd}\PY{o}{.}\PY{n}{reduceByKey}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{average\PYZus{}taxi\PYZus{}out} \PY{o}{=} \PY{n}{departing\PYZus{}flights\PYZus{}rdd}\PY{o}{.}\PY{n}{mapValues}\PY{p}{(}\PY{k}{lambda} \PY{n}{y}\PY{p}{:} \PY{n+nb}{float}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{collect}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{top\PYZus{}5\PYZus{}dest\PYZus{}rdd} \PY{o}{=} \PY{n}{this\PYZus{}airport\PYZus{}rdd}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reduceByKey}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{n}{y}\PY{p}{)}
+             \PY{n}{top\PYZus{}5\PYZus{}dest} \PY{o}{=} \PY{n}{top\PYZus{}5\PYZus{}dest\PYZus{}rdd}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sortByKey}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{collect}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{:}\PY{p}{]}   
+             
+             
+             \PY{n}{weather\PYZus{}delays\PYZus{}rdd} \PY{o}{=} \PY{n}{this\PYZus{}airport\PYZus{}rdd}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{n}{y}\PY{p}{)}
+             \PY{n}{weather\PYZus{}delays\PYZus{}rdd} \PY{o}{=} \PY{n}{weather\PYZus{}delays\PYZus{}rdd}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{!=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{weather\PYZus{}delays\PYZus{}rdd} \PY{o}{=} \PY{n}{weather\PYZus{}delays\PYZus{}rdd}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{bool}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{weather\PYZus{}delays\PYZus{}per\PYZus{}day} \PY{o}{=} \PY{n}{weather\PYZus{}delays\PYZus{}rdd}\PY{o}{.}\PY{n}{reduceByKey}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{sortByKey}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{collect}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{n}{airport}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{flights\PYZus{}per\PYZus{}day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{flights\PYZus{}per\PYZus{}day}\PY{p}{)}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top\PYZus{}3\PYZus{}carriers}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{top\PYZus{}3\PYZus{}carriers}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average\PYZus{}taxi\PYZus{}in}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{average\PYZus{}taxi\PYZus{}in}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average\PYZus{}taxi\PYZus{}out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{average\PYZus{}taxi\PYZus{}out}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top\PYZus{}5\PYZus{}dest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{top\PYZus{}5\PYZus{}dest}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather\PYZus{}delays\PYZus{}per\PYZus{}day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{weather\PYZus{}delays\PYZus{}per\PYZus{}day}\PY{p}{\PYZcb{}}
+             
+\end{Verbatim}
+
+    \subsubsection{Now for the fun part}\label{now-for-the-fun-part}
+
+Spark has completed its magic, now we get to reap the reward. The
+following few code blocks are graphs that help us visualize the data.
+
+In this first graph you can see that there are fewer flights on Fridays
+and that the 4th of this month had many fewer flights. This is probably
+becuase it is July in the US in this graph and the 4th is a holiday.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}View wich days of the month airlines have the most flights}
+         \PY{k}{for} \PY{n}{airport} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}airports\PYZus{}25}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{n}{airport}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flights\PYZus{}per\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of the Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Flights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flights Per Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{busy_airports_report_files/busy_airports_report_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} bar graph of the data}
+         \PY{n}{ATL} \PY{o}{=} \PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ATL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top\PYZus{}3\PYZus{}carriers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{DFW} \PY{o}{=} \PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DFW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top\PYZus{}3\PYZus{}carriers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ORD} \PY{o}{=} \PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ORD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top\PYZus{}3\PYZus{}carriers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{n\PYZus{}groups} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{std} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{ATL\PYZus{}carriers} \PY{o}{=} \PY{p}{(}\PY{n}{ATL}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ATL}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ATL}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{DFW\PYZus{}carriers} \PY{o}{=} \PY{p}{(}\PY{n}{DFW}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{DFW}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{DFW}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ORD\PYZus{}carriers} \PY{o}{=} \PY{p}{(}\PY{n}{ORD}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ORD}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{ORD}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}groups}\PY{p}{)}
+         \PY{n}{bar\PYZus{}width} \PY{o}{=} \PY{l+m+mf}{0.20}
+         
+         \PY{n}{opacity} \PY{o}{=} \PY{l+m+mf}{0.4}
+         \PY{n}{error\PYZus{}config} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ecolor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{rects1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{n}{ATL\PYZus{}carriers}\PY{p}{,} \PY{n}{bar\PYZus{}width}\PY{p}{,}
+                          \PY{n}{alpha}\PY{o}{=}\PY{n}{opacity}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{yerr}\PY{o}{=}\PY{n}{std}\PY{p}{,}
+                          \PY{n}{error\PYZus{}kw}\PY{o}{=}\PY{n}{error\PYZus{}config}\PY{p}{,}
+                          \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ATL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{rects2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{n}{bar\PYZus{}width}\PY{p}{,} \PY{n}{DFW\PYZus{}carriers}\PY{p}{,} \PY{n}{bar\PYZus{}width}\PY{p}{,}
+                          \PY{n}{alpha}\PY{o}{=}\PY{n}{opacity}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{yerr}\PY{o}{=}\PY{n}{std}\PY{p}{,}
+                          \PY{n}{error\PYZus{}kw}\PY{o}{=}\PY{n}{error\PYZus{}config}\PY{p}{,}
+                          \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DFW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{rects3} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{n}{bar\PYZus{}width}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ORD\PYZus{}carriers}\PY{p}{,} \PY{n}{bar\PYZus{}width}\PY{p}{,}
+                          \PY{n}{alpha}\PY{o}{=}\PY{n}{opacity}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{n}{yerr}\PY{o}{=}\PY{n}{std}\PY{p}{,}
+                          \PY{n}{error\PYZus{}kw}\PY{o}{=}\PY{n}{error\PYZus{}config}\PY{p}{,}
+                          \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ORD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Airports}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Flights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Airports and Number of Flights for Top 3 Airlines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{n}{bar\PYZus{}width}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FL\PYZhy{}US\PYZhy{}AA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EV\PYZhy{}MQ\PYZhy{}UA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DL\PYZhy{}AA\PYZhy{}MQ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{busy_airports_report_files/busy_airports_report_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}View airports from least to most busy taxi time}
+         \PY{n}{taxi\PYZus{}in} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{taxi\PYZus{}out} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{airport} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}airports\PYZus{}25}\PY{p}{:}
+             \PY{n}{taxi\PYZus{}in}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{n}{airport}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{average\PYZus{}taxi\PYZus{}in}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{taxi\PYZus{}out}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{n}{airport}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{average\PYZus{}taxi\PYZus{}out}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{taxi\PYZus{}in}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Taxi In}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{taxi\PYZus{}out}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Taxi Out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{25 different airports}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average time to taxi in minutes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi in and out for top 25 airports}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{busy_airports_report_files/busy_airports_report_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}View which days of the month airlines had the most weather delays}
+         \PY{k}{for} \PY{n}{airport} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}airports\PYZus{}25}\PY{p}{:}
+             \PY{n}{weather\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{n}{airport}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weather\PYZus{}delays\PYZus{}per\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{weather\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{weather\PYZus{}list}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of the Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Weather Delays}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weather Delays per Day at 25 Busiest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{busy_airports_report_files/busy_airports_report_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Display top 5 Destinations}
+         \PY{k}{for} \PY{n}{airport} \PY{o+ow}{in} \PY{n}{sorted\PYZus{}airports\PYZus{}25}\PY{p}{:}
+             \PY{k}{print} \PY{n}{airport}\PY{p}{,} \PY{n}{gathered\PYZus{}data}\PY{p}{[}\PY{n}{airport}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top\PYZus{}5\PYZus{}dest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MDW [(315, 'LAS'), (317, 'STL'), (321, 'MCI'), (396, 'DEN'), (7431, 'MDW')]
+DCA [(636, 'ATL'), (636, 'ORD'), (756, 'BOS'), (1000, 'LGA'), (7561, 'DCA')]
+CVG [(292, 'DFW'), (293, 'DTW'), (329, 'LGA'), (508, 'ORD'), (8105, 'CVG')]
+SAN [(484, 'LAS'), (620, 'SFO'), (663, 'PHX'), (999, 'LAX'), (8613, 'SAN')]
+PHL [(577, 'BOS'), (597, 'ORD'), (617, 'MCO'), (623, 'ATL'), (8896, 'PHL')]
+BWI [(340, 'PVD'), (411, 'MCO'), (446, 'BOS'), (537, 'ATL'), (9303, 'BWI')]
+LGA [(930, 'ATL'), (935, 'ORD'), (996, 'DCA'), (1080, 'BOS'), (10506, 'LGA')]
+BOS [(652, 'ORD'), (729, 'JFK'), (760, 'DCA'), (1079, 'LGA'), (10591, 'BOS')]
+SEA [(531, 'SFO'), (612, 'DEN'), (678, 'ANC'), (686, 'LAX'), (10728, 'SEA')]
+CLT [(477, 'ORD'), (504, 'LGA'), (517, 'ATL'), (525, 'EWR'), (10821, 'CLT')]
+JFK [(478, 'MCO'), (607, 'SFO'), (737, 'LAX'), (745, 'BOS'), (11499, 'JFK')]
+MCO [(412, 'EWR'), (477, 'JFK'), (618, 'PHL'), (802, 'ATL'), (11578, 'MCO')]
+MSP [(484, 'DEN'), (490, 'DTW'), (514, 'ATL'), (866, 'ORD'), (11684, 'MSP')]
+EWR [(412, 'MCO'), (520, 'CLT'), (643, 'ORD'), (774, 'ATL'), (12244, 'EWR')]
+SLC [(436, 'LAX'), (471, 'LAS'), (663, 'PHX'), (769, 'DEN'), (12476, 'SLC')]
+SFO [(558, 'SAN'), (607, 'LAS'), (638, 'JFK'), (1290, 'LAX'), (12842, 'SFO')]
+DTW [(408, 'LGA'), (424, 'MSP'), (499, 'ATL'), (640, 'ORD'), (14392, 'DTW')]
+LAS [(607, 'SFO'), (672, 'DEN'), (935, 'PHX'), (1047, 'LAX'), (15226, 'LAS')]
+IAH [(416, 'ATL'), (430, 'DEN'), (488, 'DFW'), (512, 'ORD'), (16877, 'IAH')]
+PHX [(663, 'SLC'), (664, 'DEN'), (857, 'LAX'), (903, 'LAS'), (17390, 'PHX')]
+LAX [(859, 'PHX'), (1002, 'SAN'), (1044, 'LAS'), (1257, 'SFO'), (19808, 'LAX')]
+DEN [(664, 'PHX'), (739, 'DFW'), (740, 'SLC'), (840, 'LAX'), (22040, 'DEN')]
+DFW [(577, 'LAX'), (740, 'ORD'), (745, 'DEN'), (855, 'ATL'), (25393, 'DFW')]
+ORD [(663, 'DTW'), (745, 'DFW'), (872, 'MSP'), (942, 'LGA'), (31602, 'ORD')]
+ATL [(768, 'EWR'), (802, 'MCO'), (855, 'DFW'), (925, 'LGA'), (36434, 'ATL')]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{csv\PYZus{}file}\PY{p}{:}
+             \PY{n}{writer} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{writer}\PY{p}{(}\PY{n}{csv\PYZus{}file}\PY{p}{)}
+             \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{gathered\PYZus{}data}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{n}{writer}\PY{o}{.}\PY{n}{writerow}\PY{p}{(}\PY{p}{[}\PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{]}\PY{p}{)}
+             
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fp}\PY{p}{:}
+             \PY{n}{json}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{gathered\PYZus{}data}\PY{p}{,} \PY{n}{fp}\PY{p}{)}
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
